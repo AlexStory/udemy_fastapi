@@ -1,7 +1,13 @@
-from fastapi import FastAPI
-from .core.config import settings
+from fastapi import FastAPI, Depends
+from .core.config import Settings
 from .db.session import engine
-from .db.base_class import BaseClass
+from .db.models.base import BaseClass
+from functools import lru_cache
+
+
+@lru_cache()
+def get_settings():
+    return Settings()
 
 
 def create_tables():
@@ -9,6 +15,7 @@ def create_tables():
 
 
 def start_application():
+    settings = get_settings()
     app = FastAPI(title=settings.PROJECT_TITLE, version=settings.PROJECT_VERSION)
     create_tables()
     return app
@@ -18,5 +25,5 @@ app = start_application()
 
 
 @app.get("/")
-def home():
+async def home():
     return {"data": "hello world"}

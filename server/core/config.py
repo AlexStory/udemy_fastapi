@@ -15,6 +15,3 @@ class Settings(BaseSettings):
     POSTGRES_SERVER: str
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str
-
-
-settings = Settings()
