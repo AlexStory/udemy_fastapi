@@ -10,7 +10,6 @@ from server.db.base_class import BaseClass
 
 class Job(BaseClass):
     id = Column(BigInteger, primary_key=True, index=True)
-    uuid = Column(UUID, nullable=False, default=uuid4, unique=True, index=True)
     title = Column(String, nullable=False)
     company = Column(String, nullable=False)
     company_url = Column(String)
